@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
-#include <stdbool.h>
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -32,34 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOME_L RALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
-int WINDOWS = 1;
-
-void keyboard_post_init_user(void) {
-    rgb_matrix_enable_noeeprom(); // enables Rgb, without saving settings
-    rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
-}
-
-enum custom_keycodes { KC_OS = SAFE_RANGE, KEL_BACK, KEL_FORTH, KEL_GUI, KEL_CTRL };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_OS:
-            if (record->event.pressed) {
-                WINDOWS = !WINDOWS;
-                if (WINDOWS) {
-                    rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
-                } else {
-                    rgb_matrix_sethsv_noeeprom(HSV_WHITE);
-                }
-            } else {
-                // Do something else when release
-            }
-            return false; // Skip all further processing of this
-        default:
-            return true; // Process all other keycodes normally
-    }
-}
-
 enum layer_names { _BASE, _MOVE, _SYMBOLS, _NUMBERS, _FN };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -72,20 +43,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         XXXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LSFT(KC_SCLN), LSFT(KC_QUOT),
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--l------+--------+--------+--------+--------|
-        KC_TAB, MO(_MOVE), KC_ENT, KC_SPC, OSL(_SYMBOLS), KC_DEL
-        //`--------------------------'  `----------------------- 
+        KC_TAB, MO(_NUMBERS), KC_ENT, KC_SPC, OSL(_SYMBOLS), KC_DEL
+        //`--------------------------'  `-----------------------
 
         ),
 
     [_NUMBERS] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        TG(_NUMBERS), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        XXXXXXX, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, XXXXXXX,
+        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-        KC_TAB, MO(_MOVE), KC_ENT, KC_SPC, MO(_FN), KC_DEL
+        KC_TAB, _______, KC_ENT, KC_SPC, MO(_FN), KC_DEL
         //`--------------------------'  `--------------------------'
         ),
     [_SYMBOLS] = LAYOUT_split_3x6_3(
@@ -101,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_FN] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        QK_BOOT, KC_F1, KC_F2, XXXXXXX, KC_F4, KC_F5, KC_WSCH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_OS,
+        QK_BOOT, KC_F1, KC_F2, XXXXXXX, KC_F4, KC_F5, KC_WSCH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         XXXXXXX, XXXXXXX, TG(_NUMBERS), XXXXXXX, CW_TOGG, XXXXXXX, LCTL(KC_PGUP), KC_WBAK, KC_WFWD, LCTL(KC_PGDN), XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

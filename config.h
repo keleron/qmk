@@ -24,21 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
+// #define MASTER_LEFT
 
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
-#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
-#ifdef RGB_MATRIX_ENABLE
-#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#    define ENABLE_RGB_MATRIX_BREATHING
+// #define RGB_MATRIX_DISABLE_SHARED_KEYCODES
+// #ifdef RGB_MATRIX_ENABLE
+// #    define ENABLE_RGB_MATRIX_PIXEL_FLOW
+// #    define ENABLE_RGB_MATRIX_BREATHING
 
-// #    define RGB_MATRIX_KEYPRESSES
-// #    define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-// #    define ENABLE_RGB_MATRIX_SPLASH
-#endif
+// // #    define RGB_MATRIX_KEYPRESSES
+// // #    define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+// // #    define ENABLE_RGB_MATRIX_SPLASH
+// #endif
 
 #define TAPPING_TERM 120

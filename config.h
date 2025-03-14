@@ -40,3 +40,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #    define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 // #    define ENABLE_RGB_MATRIX_SPLASH
 #endif
+
+#define TAPPING_TERM 120

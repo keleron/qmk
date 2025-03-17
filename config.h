@@ -41,4 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // // #    define ENABLE_RGB_MATRIX_SPLASH
 // #endif
 
-#define TAPPING_TERM 120
+#define TAPPING_TERM 200
+#define RGBLIGHT_DEFAULT_ON false
+#define RGBLIGHT_DEFAULT_VAL 0

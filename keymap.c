@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 
 // Left-hand home row mods
@@ -31,14 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOME_L RALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
-
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
 #define HOME_4 LALT_T(KC_4)
 #define HOME_5 LCTL_T(KC_5)
 #define HOME_6 LSFT_T(KC_6)
 
-enum layer_names { _BASE = SAFE_RANGE, _MOVE, _SYMBOLS, _NUMBERS, _FN };
+enum layer_names { _BASE, _MOVE, _SYMBOLS, _NUMBERS, _FN };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3(
@@ -48,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_TAB, HOME_A, HOME_S, HOME_D, HOME_F, KC_G, KC_H, HOME_J, HOME_K, HOME_L, HOME_SCLN, KC_QUOT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LSFT(KC_SCLN), LSFT(KC_QUOT),
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--l------+--------+--------+--------+--------|
         XXXXXXX, MO(_NUMBERS), KC_ENT, KC_SPC, OSL(_SYMBOLS), KC_DEL
         //`--------------------------'  `-----------------------

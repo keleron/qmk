@@ -42,5 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #endif
 
 #define TAPPING_TERM 200
-#define RGBLIGHT_DEFAULT_ON false
-#define RGBLIGHT_DEFAULT_VAL 0
+#define RGBLIGHT_DEFAULT_ON true
+#undef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 50

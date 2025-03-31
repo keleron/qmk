@@ -41,10 +41,46 @@ enum layer_names { _BASE, _MOVE, _SYMBOLS, _NUMBERS, _FN };
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // This globally defines all key overrides to be used
-const key_override_t **key_overrides = (const key_override_t *[]){
-	&delete_key_override,
-	NULL // Null terminate the array of overrides!
+const key_override_t *key_overrides[] = {
+	&delete_key_override
 };
+
+enum OS {
+    OS_MACOS = SAFE_RANGE,
+    OS_WINDOWS
+};
+
+enum custom_keycodes {
+    KE_CHANGE_OS = SAFE_RANGE,
+};
+
+uint16_t current_os = OS_WINDOWS;
+
+void keyboard_post_init_user(void) {
+      rgblight_enable_noeeprom();
+      rgblight_sethsv_noeeprom(HSV_CYAN);
+      rgblight_mode_noeeprom(1);
+  }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+      case KE_CHANGE_OS:
+        if (record->event.pressed) {
+            if (current_os == OS_MACOS) {
+                current_os = OS_WINDOWS;
+                rgblight_sethsv_noeeprom(HSV_CYAN); rgblight_mode_noeeprom(1);
+            } else if (current_os == OS_WINDOWS) {
+                current_os = OS_MACOS;
+                rgblight_sethsv_noeeprom(HSV_WHITE); rgblight_mode_noeeprom(1);
+            }
+            break;
+        }
+        return false; // Skip all further processing of this key
+      default:
+        return true; // Process all other keycodes normally
+    }
+    return true;
+  }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3(
@@ -84,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_FN] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        QK_BOOT, KC_F1, KC_F2, XXXXXXX, KC_F4, KC_F5, KC_WSCH, XXXXXXX, KC_WFWD, XXXXXXX, XXXXXXX, XXXXXXX,
+        QK_BOOT, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_WSCH, XXXXXXX, KC_WFWD, XXXXXXX, XXXXXXX, KE_CHANGE_OS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CW_TOGG, XXXXXXX, XXXXXXX, LCTL(KC_PGUP), KC_WBAK, LCTL(KC_PGDN), XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
